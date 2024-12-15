@@ -9,8 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.es.interfazproyectoapp.screens.navBars.MyAppWithDrawer
 import com.es.interfazproyectoapp.ui.theme.InterfazProyectoAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,30 +24,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            InterfazProyectoAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            var isDarkMode by rememberSaveable { mutableStateOf(true) }
+            val navController = rememberNavController()
+
+            InterfazProyectoAppTheme (darkTheme = isDarkMode) {
+
+                // Se obtiene el innerPadding y lo pasamos al Modifier
+                Scaffold(
+                    content = { innerPadding -> // Este es el innerPadding de Scaffold
+
+                        MyAppWithDrawer(
+                            navController = navController,
+                            isDarkMode = isDarkMode,
+                            onDarkModeSwitchChange = { isDarkMode = it },
+                            //modifier = Modifier.padding(innerPadding)
+                        )
+                    }
+                )
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    InterfazProyectoAppTheme {
-        Greeting("Android")
-    }
-}

@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.es.interfazproyectoapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.es.interfazproyectoapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -66,4 +66,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // Iconos extras
+    implementation("androidx.compose.material:material-icons-extended:1.7.5")
+    // Viewmodel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    // Navegacion
+    implementation("androidx.navigation:navigation-compose:2.8.4")
 }
